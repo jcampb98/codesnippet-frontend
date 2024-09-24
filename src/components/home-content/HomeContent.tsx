@@ -10,6 +10,7 @@ function HomeContent() {
                         Easily share, store, and collaborate on code snippets with your team. 
                         No more cluttered chat messages-just clean, organized, and searchable code sharing.
                     </p>
+                    <button className='get-started-btn' role='button'>Get Started</button>
                 </div>
                 <div className='content-image-container'>
                     <img className='content-image' src='../my_code_snippets.svg' alt='an illustration of a mobile phone with code snippets' />
@@ -23,7 +24,7 @@ function HomeContent() {
                 </p>
                 <div className='section-content-list'>
                     <div className='section-content-item'>
-                        <img className='content-item-icon' src='../../../coding.png' />
+                        <img className='content-item-icon' src='../coding.png' />
                         <h2 className='content-item-header'>Organized Code Sharing</h2>
                         <p className='content-item-body'>
                             Stop losing important code in endless chat threads. 
@@ -31,7 +32,7 @@ function HomeContent() {
                         </p>
                     </div>
                     <div className='section-content-item'>
-                        <img className='content-item-icon' src='../../../team.png' />
+                        <img className='content-item-icon' src='../team.png' />
                         <h2 className='content-item-header'>Boost Team Productivity</h2>
                         <p className='content-item-body'>
                             Instantly share snippets with your team, speeding up development and reducing repetitive work. 
@@ -39,7 +40,7 @@ function HomeContent() {
                         </p>
                     </div>
                     <div className='section-content-item'>
-                        <img className='content-item-icon' src='../../../search-code.png' />
+                        <img className='content-item-icon' src='../search-code.png' />
                         <h2 className='content-item-header'>Searchable & Discoverable</h2>
                         <p className='content-item-body'>
                             Find exactly what you're looking for with powerful search. 
@@ -47,7 +48,7 @@ function HomeContent() {
                         </p>
                     </div>
                     <div className='section-content-item'>
-                        <img className='content-item-icon' src='../../../security.png' />
+                        <img className='content-item-icon' src='../security.png' />
                         <h2 className='content-item-header'>Secure & Collaborative</h2>
                         <p className='content-item-body'>
                             Share code safely within your team and collaborate in real time. 
@@ -67,7 +68,7 @@ function HomeContent() {
                     </div>
 
                     <div className='arrow-container'>
-                        <img className='arrow-icon' src='../../../right-arrow.png' alt='Icon of a Right Arrow' />
+                        <img className='arrow-icon' src='../right-arrow.png' alt='Icon of a Right Arrow' />
                     </div>
 
                     <div className='step'>
@@ -78,7 +79,7 @@ function HomeContent() {
                     </div>
 
                     <div className='arrow-container'>
-                        <img className='arrow-icon' src='../../../right-arrow.png' alt='Icon of a Right Arrow' />
+                        <img className='arrow-icon' src='../right-arrow.png' alt='Icon of a Right Arrow' />
                     </div>
 
                     <div className='step'>
