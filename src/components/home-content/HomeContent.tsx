@@ -56,6 +56,40 @@ function HomeContent() {
                     </div>
                 </div>
             </section>
+            <section className='how-it-works'>
+                <h1 className='step-header'>How CodeSnippets Works in 3 Steps</h1>
+                <div className='steps'>
+                    <div className='step'>
+                        <h3 className='step-title'>1. Sign Up</h3>
+                        <p className='step-description'>
+                            Create a free account to start sharing and collaborating on code.
+                        </p>
+                    </div>
+
+                    <div className='arrow-container'>
+                        <img className='arrow-icon' src='../../../right-arrow.png' alt='Icon of a Right Arrow' />
+                    </div>
+
+                    <div className='step'>
+                        <h3 className='step-title'>2. Create Snippets</h3>
+                        <p className='step-description'>
+                            Save important code snippets and organize them in the dashboard.
+                        </p>
+                    </div>
+
+                    <div className='arrow-container'>
+                        <img className='arrow-icon' src='../../../right-arrow.png' alt='Icon of a Right Arrow' />
+                    </div>
+
+                    <div className='step'>
+                        <h3 className='step-title'>3. Collaborate</h3>
+                        <p className='step-description'>
+                            Easily share your snippet with other developers via a link. 
+                            Allow them to view, use, or contribute to the codebase seamlessly.
+                        </p>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }
