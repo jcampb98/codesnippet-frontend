@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import "../../styles/navbar/Navbar.css";
 
@@ -25,8 +26,12 @@ function Navbar() {
                     <span className="bar"></span>
                     <span className="bar"></span>
                 </div>
-                <button type="button" className="register-btn">Register</button>
-                <button type="button" className="login-btn">Login</button>
+                <Link to={"/register"}>
+                    <button type="button" className="register-btn">Register</button>
+                </Link>
+                <Link to={"/login"}>
+                    <button type="button" className="login-btn">Login</button>
+                </Link>
             </nav>
         </div>
     );
