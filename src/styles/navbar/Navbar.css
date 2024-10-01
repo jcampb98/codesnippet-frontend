@@ -97,3 +97,86 @@ a {
     color: #011f4b;
     transform: translateY(-7px);
 }
+
+@media (max-width: 1024px) {
+    .nav-logo {
+        width: auto;
+        height: 25px;
+    }
+
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        width: 100%;
+        left: 0;
+        align-items: center;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        margin-top: 50px;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-menu a {
+        text-decoration: none;
+        color: hsl(233, 26%, 24%);
+        padding: 10px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hamburger.active .bar {
+        background-color: #005b96;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: rotate(45deg) translate(9px, 9px);
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(9px, -9px);
+    }
+
+    @keyframes dropdown {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .bar {
+      width: 25px;
+      height: 3px;
+      margin: 5px auto;
+      transition: all 0.3s ease-in-out;
+      background-color: hsl(233, 26%, 24%);
+    }
+    
+    .register-btn {
+      display: none;
+    }
+
+    .login-btn {
+        display: none;
+    }
+}

@@ -1,44 +1,26 @@
+import { useState } from "react";
 import "../../styles/navbar/Navbar.css";
 
 function Navbar() {
-    document.addEventListener("DOMContentLoaded", function() {
-        const hamburger = document.querySelector<HTMLElement>(".hamburger");
-        const navMenu = document.querySelector<HTMLElement>(".nav-menu");
+    const [menuOpen, setMenuOpen] = useState(false);
 
-        if (hamburger && navMenu) {
-            hamburger.addEventListener("click", mobileMenu);
-        }
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
 
-        function mobileMenu() {
-            if (hamburger && navMenu) {
-                hamburger.classList.toggle("active");
-                navMenu.classList.toggle("active");
-            }
-        }
-
-        const navLinks = document.querySelectorAll<HTMLElement>(".nav-link");
-
-        navLinks.forEach(item => {
-            item.addEventListener("click", closeMenu);
-        });
-
-        function closeMenu(): void {
-            if(hamburger && navMenu) {
-                hamburger.classList.toggle("active");
-                navMenu.classList.toggle("active");
-            }
-        }
-    });
+    const closeMenu = () => {
+        setMenuOpen(false);
+    };
 
     return (
         <div className="navbar-container">
             <nav className="navbar">
                 <img className="nav-logo" src="../../../codesnippet-logo.svg" alt="image of CodeSnippet logo" />
-                <ul className="nav-menu">
-                    <li className="nav-item">Home</li>
-                    <li className="nav-item">About</li>
+                <ul className={`nav-menu ${menuOpen ? "active" : ""}`}>
+                    <li className="nav-item" onClick={closeMenu}>Home</li>
+                    <li className="nav-item" onClick={closeMenu}>About</li>
                 </ul>
-                <div className="hamburger">
+                <div className={`hamburger ${menuOpen ? "active" : ""}`} onClick={toggleMenu}>
                     <span className="bar"></span>
                     <span className="bar"></span>
                     <span className="bar"></span>
