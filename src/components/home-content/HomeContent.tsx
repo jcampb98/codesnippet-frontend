@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import '../../styles/home-content/HomeContent.css';
 
 function HomeContent() {
@@ -10,7 +11,9 @@ function HomeContent() {
                         Easily share, store, and collaborate on code snippets with your team. 
                         No more cluttered chat messages-just clean, organized, and searchable code sharing.
                     </p>
-                    <button className='get-started-btn' role='button'>Get Started</button>
+                    <button className='get-started-btn' role='button'>
+                        <Link to="/register">Get Started</Link>
+                    </button>
                 </div>
                 <div className='content-image-container'>
                     <img className='content-image' src='../my_code_snippets.svg' alt='an illustration of a mobile phone with code snippets' />

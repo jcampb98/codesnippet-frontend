@@ -18,18 +18,22 @@ function Navbar() {
             <nav className="navbar">
                 <img className="nav-logo" src="../../../codesnippet-logo.svg" alt="image of CodeSnippet logo" />
                 <ul className={`nav-menu ${menuOpen ? "active" : ""}`}>
-                    <li className="nav-item" onClick={closeMenu}>Home</li>
-                    <li className="nav-item" onClick={closeMenu}>About</li>
+                    <li className="nav-item" onClick={closeMenu}>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li className="nav-item" onClick={closeMenu}>
+                        About
+                    </li>
                 </ul>
                 <div className={`hamburger ${menuOpen ? "active" : ""}`} onClick={toggleMenu}>
                     <span className="bar"></span>
                     <span className="bar"></span>
                     <span className="bar"></span>
                 </div>
-                <Link to={"/register"}>
+                <Link className="nav-link" to={"/register"}>
                     <button type="button" className="register-btn">Register</button>
                 </Link>
-                <Link to={"/login"}>
+                <Link className="nav-link" to={"/login"}>
                     <button type="button" className="login-btn">Login</button>
                 </Link>
             </nav>

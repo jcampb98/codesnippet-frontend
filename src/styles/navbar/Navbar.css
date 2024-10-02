@@ -17,7 +17,7 @@ a {
 }
 
 .nav-menu a:hover {
-    color: hsl(136, 65%, 51%);
+    color: #005b96;
 }
 
 .nav-logo {
@@ -177,6 +177,10 @@ a {
     }
 
     .login-btn {
+        display: none;
+    }
+
+    .nav-link {
         display: none;
     }
 }
