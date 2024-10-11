@@ -27,14 +27,37 @@ interface ApiResponseError {
 export default function Signup() {
     const [signupState, setSignupState] = useState(fieldsState);
     const [isSignedUp, setIsSignedUp] = useState(false);
+    const [errors, setErrors] = useState<{ [key: string]: boolean }>({}); // Tracks field errors
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSignupState({...signupState, [e.target.name]: e.target.value});
+        setErrors({...errors, [e.target.name]: false});
     };
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        createAccount();
+        if(validateForm()) {
+            createAccount();
+        }
+    };
+
+    const validateForm = (): boolean => {
+        const newErrors: { [key: string]: boolean} = {};
+
+        Object.keys(signupState).forEach((key) => {
+            if(!signupState[key]) {
+                newErrors[key] = true;
+            }
+        });
+
+        setErrors(newErrors);
+
+        if(Object.keys(newErrors).length > 0) {
+            toast.error("Please fill in all required fields.");
+            return false;
+        }
+
+        return true;
     };
 
     // Signup API Integration
@@ -66,7 +89,7 @@ export default function Signup() {
             const axiosError = error as AxiosError<ApiResponseError>;
 
             if(axiosError.response && axiosError.response.data && axiosError.response.data.errors) {
-                toast.error("Validation Error: " + JSON.stringify(axiosError.response.data.errors));
+                toast.error("Validation Error: There are missing fields");
             }
             else {
                 toast.error("Error: Creating User Account");
@@ -76,7 +99,9 @@ export default function Signup() {
 
     useEffect(() => {
         if(isSignedUp) {
-            window.location.replace(`${import.meta.env.VITE_BASE_URL}/login`); // Redirect to login page after signup success.
+            setTimeout(() => {
+                window.location.replace(`${import.meta.env.VITE_BASE_URL}/login`); // Redirect to login page after signup success with a 5 second delay.
+            }, 5000);
             setIsSignedUp(false); // Reset signup state to false to allow new signup attempts.
         }
     }, [isSignedUp]);
@@ -97,6 +122,7 @@ export default function Signup() {
                             type={field.type}
                             isRequired={field.isRequired}
                             placeholder={field.placeholder}
+                            customClass={errors[field.id] ? "border-red-500" : ""}
                         />
                     )
                 }

@@ -25,7 +25,7 @@ export default function Input({
     type,
     isRequired=false,
     placeholder,
-    customClass
+    customClass = ""
 }: InputProps){
     return (
         <div className="my-5">
