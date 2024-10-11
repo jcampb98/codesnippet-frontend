@@ -1,8 +1,8 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { signupFields } from "../../constants/formFields";
 import FormAction from "../layout/FormAction";
 import Input from "../layout/Input";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 import { toast } from "react-toastify";
 
 const fields = signupFields;
@@ -12,7 +12,16 @@ fields.forEach(field => fieldsState[field.id] = '');
 interface ApiResponse {
     status: boolean;
     message: string;
-    errors: string[];
+    errors?: {
+        [key: string]: string[];
+    };
+}
+
+interface ApiResponseError {
+    message: string;
+    errors?: {
+        [key: string]: string[];
+    };
 }
 
 export default function Signup() {
@@ -47,21 +56,30 @@ export default function Signup() {
             if(responseData.status === true) {
                 setIsSignedUp(true);
 
-                pageRedirect(isSignedUp);
+                toast.success(responseData.message);
+            }
+            else {
+                toast.error(responseData.message);
             }
         }
-        catch (error) {
-            console.error(error);
+        catch (error: unknown) {
+            const axiosError = error as AxiosError<ApiResponseError>;
 
-            toast.error("Error: Creating User Account");
+            if(axiosError.response && axiosError.response.data && axiosError.response.data.errors) {
+                toast.error("Validation Error: " + JSON.stringify(axiosError.response.data.errors));
+            }
+            else {
+                toast.error("Error: Creating User Account");
+            }
         }
     };
 
-    const pageRedirect = (isSignedUp: boolean) => {
+    useEffect(() => {
         if(isSignedUp) {
-            window.location.replace(`${import.meta.env.VITE_BASE_URL}/login`);
+            window.location.replace(`${import.meta.env.VITE_BASE_URL}/login`); // Redirect to login page after signup success.
+            setIsSignedUp(false); // Reset signup state to false to allow new signup attempts.
         }
-    }
+    }, [isSignedUp]);
 
     return(
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
