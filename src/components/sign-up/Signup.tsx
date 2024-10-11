@@ -10,7 +10,7 @@ const fieldsState: { [key: string]: string } = {};
 fields.forEach(field => fieldsState[field.id] = '');
 
 interface ApiResponse {
-    status: boolean;
+    status: string;
     message: string;
     errors?: {
         [key: string]: string[];
@@ -76,7 +76,7 @@ export default function Signup() {
 
             console.log(responseData);
 
-            if(responseData.status === true) {
+            if(responseData.status === "success") {
                 setIsSignedUp(true);
 
                 toast.success(responseData.message);

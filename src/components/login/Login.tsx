@@ -11,7 +11,7 @@ const fieldsState: { [key: string]: string } = {};
 fields.forEach(field => fieldsState[field.id] = '');
 
 interface ApiResponse {
-    status: boolean;
+    status: string;
     message: string;
     errors?: {
         [key: string]: string[];
@@ -73,7 +73,7 @@ export default function Login(){
 
             const responseData: ApiResponse = response.data;
 
-            if(responseData.status === true) {
+            if(responseData.status === "success") {
                 setIsLoggedIn(true);
 
                 toast.success(responseData.message);
