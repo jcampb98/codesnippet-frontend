@@ -3,6 +3,7 @@ import { signupFields } from "../../constants/formFields";
 import FormAction from "../layout/FormAction";
 import Input from "../layout/Input";
 import axios, { AxiosResponse, AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const fields = signupFields;
@@ -28,7 +29,8 @@ export default function Signup() {
     const [signupState, setSignupState] = useState(fieldsState);
     const [isSignedUp, setIsSignedUp] = useState(false);
     const [errors, setErrors] = useState<{ [key: string]: boolean }>({}); // Tracks field errors
-
+    const navigate = useNavigate();
+    
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSignupState({...signupState, [e.target.name]: e.target.value});
         setErrors({...errors, [e.target.name]: false});
@@ -100,11 +102,10 @@ export default function Signup() {
     useEffect(() => {
         if(isSignedUp) {
             setTimeout(() => {
-                window.location.replace(`${import.meta.env.VITE_BASE_URL}/login`); // Redirect to login page after signup success with a 5 second delay.
+                navigate("/login");
             }, 5000);
-            setIsSignedUp(false); // Reset signup state to false to allow new signup attempts.
         }
-    }, [isSignedUp]);
+    }, [isSignedUp, navigate]);
 
     return(
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>

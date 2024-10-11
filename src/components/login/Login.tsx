@@ -4,6 +4,7 @@ import Input from "../layout/Input";
 import FormAction from "../layout/FormAction";
 import FormExtra from "../layout/FormExtra";
 import axios, { AxiosResponse, AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const fields = loginFields;
@@ -13,6 +14,9 @@ fields.forEach(field => fieldsState[field.id] = '');
 interface ApiResponse {
     status: string;
     message: string;
+    authorisation: {
+        token: string;
+    };
     errors?: {
         [key: string]: string[];
     };
@@ -29,6 +33,7 @@ export default function Login(){
     const [loginState, setLoginState] = useState(fieldsState);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [errors, setErrors] = useState<{ [key: string]: boolean }>({}); // Tracks field errors
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLoginState({...loginState, [e.target.id]: e.target.value});
@@ -76,6 +81,8 @@ export default function Login(){
             if(responseData.status === "success") {
                 setIsLoggedIn(true);
 
+                localStorage.setItem("token", responseData.authorisation.token);
+
                 toast.success(responseData.message);
             }
             else {
@@ -97,10 +104,10 @@ export default function Login(){
     useEffect(() => {
         if(isLoggedIn) {
             setTimeout(() => {
-                window.location.replace(`${import.meta.env.VITE_BASE_URL}/dashboard`); // Redirect to login page after log in success with a 5 second delay.
+                navigate("/dashboard");
             }, 5000);
         }
-    }, [isLoggedIn]);
+    }, [isLoggedIn, navigate]);
 
     return(
         <>
