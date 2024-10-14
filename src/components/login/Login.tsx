@@ -3,6 +3,7 @@ import { loginFields } from "../../constants/formFields";
 import Input from "../layout/Input";
 import FormAction from "../layout/FormAction";
 import FormExtra from "../layout/FormExtra";
+import FormRedirect from "../layout/FormRedirect";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -134,6 +135,8 @@ export default function Login(){
 
                 <FormExtra />
                 <FormAction handleSubmit={handleSubmit} text="Login" />
+
+                <FormRedirect />
             </form>
         </>
     );

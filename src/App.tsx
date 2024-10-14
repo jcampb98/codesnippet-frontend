@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from './components/navbar/Navbar';
-import HomeContent from './components/home-content/HomeContent';
+import LandingPage from "./pages/landing-page/LandingPage";
 import LoginPage from "./pages/login/Login";
 import RegisterPage from "./pages/sign-up/Signup";
 import ProtectedRoute from "./components/protected-route/ProtectedRoute";
@@ -13,9 +12,8 @@ function App() {
   return (
     <Router>
       <div>
-        <Navbar/>
         <Routes>
-          <Route path="/" element={<HomeContent />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />

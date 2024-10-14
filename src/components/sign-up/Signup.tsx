@@ -1,6 +1,7 @@
 import { FormEvent, useState, useEffect } from "react";
 import { signupFields } from "../../constants/formFields";
 import FormAction from "../layout/FormAction";
+import FormRedirect from "../layout/FormRedirect";
 import Input from "../layout/Input";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
@@ -67,7 +68,6 @@ export default function Signup() {
         try {
             const jsonData = {
                 name: signupState.name,
-                username: signupState.username,
                 email: signupState.email,
                 password: signupState.password
             };
@@ -130,6 +130,7 @@ export default function Signup() {
             </div>
 
             <FormAction handleSubmit={handleSubmit} text="Signup" />
+            <FormRedirect />
         </form>
     );
 }
