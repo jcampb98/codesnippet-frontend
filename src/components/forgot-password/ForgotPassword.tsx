@@ -45,7 +45,7 @@ export default function ForgotPassword() {
 
                 const responseData: ApiResponse = response.data;
 
-                if(responseData.status) {
+                if(responseData.status === "success") {
                     toast.success(responseData.message);
                 }
                 else {

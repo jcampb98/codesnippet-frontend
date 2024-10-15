@@ -28,6 +28,7 @@ interface ApiResponseError {
 export default function ResetPassword() {
     const [resetPasswordState, setResetPasswordState] = useState(fieldsState);
     const [validationErrors, setValidationErrors] = useState<{ [key: string]: boolean }>({});
+    const [email, setEmail] = useState('');
     const { token } = useParams<{ token: string }>();
     const [submitted, setSubmitted] = useState(false);
     const navigate = useNavigate();
@@ -39,10 +40,13 @@ export default function ResetPassword() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        getParameters();
+        
         if(validateForm()) {
             try {
                 const jsonData = {
                     token: token,
+                    email: email,
                     password: resetPasswordState.password,
                 };
 
@@ -66,7 +70,7 @@ export default function ResetPassword() {
                     toast.error("Validation Error: The Email Address is Invalid");
                 }
                 else {
-                    toast.error("Error in Sending Reset Password E-Mail");
+                    toast.error("Error in Resetting Password");
                 }
             }
         }
@@ -98,6 +102,16 @@ export default function ResetPassword() {
 
         return true;
     };
+
+    const getParameters = () => {
+        const queryParams = new URLSearchParams(window.location.search);
+        const paramValue = queryParams.get("email");
+
+        if(paramValue) {
+            setEmail(paramValue);
+            return;
+        }
+    }
 
     return(
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
