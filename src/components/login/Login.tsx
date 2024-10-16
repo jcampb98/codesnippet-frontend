@@ -32,9 +32,32 @@ interface ApiResponseError {
 
 export default function Login(){
     const [loginState, setLoginState] = useState(fieldsState);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [errors, setErrors] = useState<{ [key: string]: boolean }>({}); // Tracks field errors
     const navigate = useNavigate();
+
+    // Checks if token exists in localStorage and redirects if valid
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if(token) {
+            axios.get(`${import.meta.env.VITE_API_URL}/validate-token`, {
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((response) => {
+                if(response.status === 200) {
+                    // Token is valid redirect to dashboard
+                    navigate('/dashboard');
+                }
+            })
+            .catch(() => {
+                //Token is invalid, remove it from localStorage
+                localStorage.removeItem('token');
+            });
+        }
+    }, [navigate]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLoginState({...loginState, [e.target.id]: e.target.value});
@@ -80,11 +103,11 @@ export default function Login(){
             const responseData: ApiResponse = response.data;
 
             if(responseData.status === "success") {
-                setIsLoggedIn(true);
-
                 localStorage.setItem("token", responseData.authorisation.token);
 
                 toast.success(responseData.message);
+
+                navigate("/dashboard");
             }
             else {
                 toast.error(responseData.message);
@@ -101,14 +124,6 @@ export default function Login(){
             }
         }
     };
-
-    useEffect(() => {
-        if(isLoggedIn) {
-            setTimeout(() => {
-                navigate("/dashboard");
-            }, 5000);
-        }
-    }, [isLoggedIn, navigate]);
 
     return(
         <>
