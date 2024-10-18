@@ -1,4 +1,5 @@
 import {
+    HomeIcon,
     ArrowRightIcon,
     ArrowLeftIcon,
     CodeBracketIcon,
@@ -43,15 +44,21 @@ export default function SideBar({ user, expanded, setExpanded }: SideBarProps) {
                             className="rounded-lg bg-gray-50 p-1.5 hover:bg-gray-100"
                         >
                             {expanded ? (
-                            <ArrowRightIcon className="h-6 w-6" />
-                            ) : (
                             <ArrowLeftIcon className="h-6 w-6" />
+                            ) : (
+                            <ArrowRightIcon className="h-6 w-6" />
                             )}
                         </button>
                         </div>
                     </div>
                     
                     <ul className="flex-1 px-3">
+                        <SideBarItem
+                            icon={<HomeIcon className="h-6 w-6 text-primary-500" />}
+                            text="Dashboard"
+                            linkUrl="/dashboard"
+                            expanded={expanded}
+                        />
                         <SideBarItem
                             icon={<CodeBracketIcon className="h-6 w-6 text-primary-500" />}
                             text="Code Snippets"
@@ -60,12 +67,9 @@ export default function SideBar({ user, expanded, setExpanded }: SideBarProps) {
                         />
                         <SideBarItem
                             icon={<CogIcon className="h-6 w-6 text-primary-500" />}
-                            text="Settings"
+                            text="Account Settings"
                             linkUrl="/user-settings"
                             expanded={expanded}
-                            subMenu={[
-                                { icon: <CogIcon className="h-4 w-4" />, text: "Account", linkUrl: "/account" },
-                            ]}
                         />
                     </ul>
                     

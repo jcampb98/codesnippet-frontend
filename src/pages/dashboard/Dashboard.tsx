@@ -3,6 +3,7 @@ import SideBar from "../../components/side-bar/SideBar";
 import LoadingSpinner from "../../components/loading-spinner/LoadingSpinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../../styles/dashboard/Dashboard.css";
 
 interface User {
     id: number;
@@ -26,8 +27,6 @@ export default function Dashboard() {
                 }
             })
             .then((response) => {
-                console.log(response.data);
-
                 if(response.status === 200) {
                     setUser(response.data.user);
                 }
@@ -49,6 +48,10 @@ export default function Dashboard() {
     return (
         <div className="dashboard-container">
             <SideBar user={user} expanded={expanded} setExpanded={setExpanded} />
+            <div className="dashboard-welcome">
+                <h1 className="welcome-heading">Welcome, {user.name}!</h1>
+                <p className="welcome-subtext">This is your dashboard. You can manage your code snippets in the CodeSnippets Tab.</p>
+            </div>
         </div>
     );
 }
