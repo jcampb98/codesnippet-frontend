@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.top-page-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f0f4f8;
+    border-bottom: 2px solid #eaeaea;
+}
+
+.page-heading {
+    font-size: 2.5rem;
+    color: #005b96;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.sort-options-container {
+    display: flex;
+    align-items: center;
+}
+
+.sort-btn {
+    background-color: #005b96;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sort-btn:hover {
+    background-color: #004080;
+}
+
+.body-container {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    overflow-y: auto;
+}
