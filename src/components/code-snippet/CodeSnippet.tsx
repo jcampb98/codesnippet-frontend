@@ -7,7 +7,7 @@ interface CodeSnippetProps {
 
 const CodeSnippet = ({ title, code }: CodeSnippetProps)  =>{
     return(
-        <div className='code-snippet-card'>
+        <div>
             <h3 className="code-snippet-title">{title}</h3>
             <br />
             <CodeBlock code={code} />

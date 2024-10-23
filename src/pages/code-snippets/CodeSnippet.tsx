@@ -163,10 +163,13 @@ export default function CodeSnippetPage() {
                             codeSnippet.map((codeSnippet) => (
                                 <div key={codeSnippet.id} className="grid-item">
                                     <div className="code-snippet-container">
-                                        <CodeSnippet title={codeSnippet.title} code={codeSnippet.code_snippet} />
-                                        <div className="code-snippet-buttons">
-                                            <button onClick={updateCodeSnippet} className="edit-btn">Edit</button>
-                                            <button onClick={() => deleteCodeSnippet(codeSnippet.id)} className="delete-btn">Delete</button>
+                                        <div className='code-snippet-card'>
+                                            <CodeSnippet title={codeSnippet.title} code={codeSnippet.code_snippet} />
+                                            <div className="code-snippet-buttons">
+                                                <button onClick={updateCodeSnippet} className="edit-btn">Edit</button>
+                                                <button onClick={() => deleteCodeSnippet(codeSnippet.id)} className="delete-btn">Delete</button>
+                                                <button className="share-btn">Share CodeSnippet</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
