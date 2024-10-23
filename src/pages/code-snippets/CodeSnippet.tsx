@@ -31,6 +31,11 @@ interface ApiResponseError {
     };
 }
 
+interface SnippetType {
+    id: number;
+    title: string;
+}
+
 const options = [
     { label: "JavaScript", value: "javascript"},
     { label: "TypeScript", value: "typescript"},
@@ -42,6 +47,8 @@ export default function CodeSnippetPage() {
     const [user, setUser] = useState<User | null>();
     const [codeSnippet, setCodeSnippet] = useState<CodeSnippetResponse[]>([]);
     const [expanded, setExpanded] = useState(false);
+    const [search, setSearch] = useState("");
+    const [filteredSnippets, setFilteredSnippets] = useState<SnippetType[]>(codeSnippet);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -99,6 +106,23 @@ export default function CodeSnippetPage() {
         return <LoadingSpinner text="Loading CodeSnippets..." />;
     }
 
+    const handleSearchBoxChange = (e: { target: { value: string; };}) => {
+        setSearch(e.target.value);
+    };
+
+    const handleSearchSubmit = () => {
+        if(search.length > 0) {
+            const filtered = codeSnippet.filter((snippet) => {
+                return snippet.title.toLowerCase().includes(search.toLowerCase());
+            });
+
+            setFilteredSnippets(filtered);
+        }
+        else {
+            setFilteredSnippets(codeSnippet);
+        }
+    };
+
     const handleCheckboxChange = (selectedValues: string []) => {
         console.log("Selected values: ", selectedValues);
     };
@@ -143,7 +167,7 @@ export default function CodeSnippetPage() {
                 <div className="top-page-container mb-6">
                     <h1 className="page-heading">CodeSnippets</h1>
                     <div className="w-full lg:w-3/4">
-                        <SearchBar />
+                        <SearchBar onChange={handleSearchBoxChange} value={search} onSubmit={handleSearchSubmit} />
                     </div>
                     <div className="checkbox-group mt-6">
                     <div className="mt-6">
@@ -159,21 +183,37 @@ export default function CodeSnippetPage() {
                         + Create CodeSnippet
                     </button>
                     <div className="grid">
-                        {codeSnippet.length > 0 ? (
-                            codeSnippet.map((codeSnippet) => (
-                                <div key={codeSnippet.id} className="grid-item">
+                        {
+                            search.length > 0 
+                            ? filteredSnippets.map(snippet => (
+                                <div key={snippet.id} className="grid-item">
                                     <div className="code-snippet-container">
                                         <div className='code-snippet-card'>
-                                            <CodeSnippet title={codeSnippet.title} code={codeSnippet.code_snippet} />
+                                            <CodeSnippet title={snippet.title} code={snippet.code_snippet} />
                                             <div className="code-snippet-buttons">
                                                 <button onClick={updateCodeSnippet} className="edit-btn">Edit</button>
-                                                <button onClick={() => deleteCodeSnippet(codeSnippet.id)} className="delete-btn">Delete</button>
+                                                <button onClick={() => deleteCodeSnippet(snippet.id)} className="delete-btn">Delete</button>
                                                 <button className="share-btn">Share CodeSnippet</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             ))
+                            : codeSnippet.length > 0 ? (
+                                codeSnippet.map((codeSnippet) => (
+                                    <div key={codeSnippet.id} className="grid-item">
+                                        <div className="code-snippet-container">
+                                            <div className='code-snippet-card'>
+                                                <CodeSnippet title={codeSnippet.title} code={codeSnippet.code_snippet} />
+                                                <div className="code-snippet-buttons">
+                                                    <button onClick={updateCodeSnippet} className="edit-btn">Edit</button>
+                                                    <button onClick={() => deleteCodeSnippet(codeSnippet.id)} className="delete-btn">Delete</button>
+                                                    <button className="share-btn">Share CodeSnippet</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
                         ) : (
                             <p className="text-center text-gray-500">No code snippets found.</p>
                         )}
