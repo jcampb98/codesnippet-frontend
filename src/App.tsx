@@ -7,8 +7,11 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import ForgotPassword from "./pages/forgot-password/ForgotPassword";
 import ResetPassword from "./pages/reset-password/ResetPassword";
 import CodeSnippetPage from "./pages/code-snippets/CodeSnippet";
+import CreateCodeSnippetPage from "./pages/code-snippets/CreateCodeSnippet";
+import UpdateCodeSnippetPage from "./pages/code-snippets/UpdateCodeSnippet";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import 'highlight.js/styles/default.css';
 import './App.css';
 
 function App() {
@@ -23,6 +26,8 @@ function App() {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/code-snippets" element={<ProtectedRoute><CodeSnippetPage /></ProtectedRoute>} />
+          <Route path="/create-snippet" element={<ProtectedRoute><CreateCodeSnippetPage /></ProtectedRoute>} />
+          <Route path="/update-snippet" element={<ProtectedRoute><UpdateCodeSnippetPage /></ProtectedRoute>} />
         </Routes>
         <ToastContainer 
           position="top-right" 
