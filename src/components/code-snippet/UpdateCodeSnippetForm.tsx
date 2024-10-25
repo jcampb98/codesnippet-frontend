@@ -3,6 +3,12 @@ import { toast } from "react-toastify";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
+interface UpdateCodeSnippetFormProps {
+    id: number, 
+    title: string, 
+    code_snippet: string
+}
+
 interface ApiResponse {
     status: string;
     message: string;
@@ -21,9 +27,9 @@ interface ApiResponseError {
     };
 }
 
-export default function UpdateCodeSnippetForm(id) {
-    const [title, setTitle] = useState<string>('');
-    const [body, setBody] = useState<string>('');
+const UpdateCodeSnippetForm = ({ id, title, code_snippet } : UpdateCodeSnippetFormProps) => {
+    const [newTitle, setNewTitle] = useState(title);
+    const [body, setBody] = useState(code_snippet);
     const [errors, setErrors] = useState<{ [key: string]: boolean }>({
         title: false,
         body: false
@@ -42,7 +48,7 @@ export default function UpdateCodeSnippetForm(id) {
         const newErrors: { [key: string]: boolean } = { title: false, body: false };
         let isValid = true;
 
-        if(title.trim() === '') {
+        if(newTitle.trim() === '') {
             newErrors.title = true;
             isValid = false;
         }
@@ -55,11 +61,11 @@ export default function UpdateCodeSnippetForm(id) {
         return isValid;
     }
 
-    const updateSnippet = async (id) => {
+    const updateSnippet = async () => {
         try {
             const jsonData = {
-                title: title,
-                code_snippet: body
+                title: newTitle,
+                code_snippet: body,
             };
 
             const token = localStorage.getItem('token');
@@ -119,7 +125,7 @@ export default function UpdateCodeSnippetForm(id) {
                             id="title"
                             type="text"
                             value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            onChange={(e) => setNewTitle(e.target.value)}
                         />
                         {errors.title && (
                             <p className="text-red-500 text-sm mt-1">Title is required.</p>
@@ -152,3 +158,5 @@ export default function UpdateCodeSnippetForm(id) {
         </div>
     );
 }
+
+export default UpdateCodeSnippetForm;

@@ -34,6 +34,10 @@ interface ApiResponseError {
 interface SnippetType {
     id: number;
     title: string;
+    code_snippet: string;
+    user_id: number;
+    created_at: string;
+    updated_at: string;
 }
 
 const options = [
@@ -131,8 +135,10 @@ export default function CodeSnippetPage() {
         navigate("/create-snippet");
     };
 
-    const updateCodeSnippet = () => {
-        navigate("/update-snippet");
+    const updateCodeSnippet = (singleCodeSnippet: CodeSnippetResponse) => {
+        console.log("Updating code snippet: ", singleCodeSnippet);
+
+        navigate(`/update-snippet/${singleCodeSnippet.id}`, { state: { singleCodeSnippet }});
     }
 
     const deleteCodeSnippet = async (id: number) => {
@@ -191,7 +197,7 @@ export default function CodeSnippetPage() {
                                         <div className='code-snippet-card'>
                                             <CodeSnippet title={snippet.title} code={snippet.code_snippet} />
                                             <div className="code-snippet-buttons">
-                                                <button onClick={updateCodeSnippet} className="edit-btn">Edit</button>
+                                                <button onClick={() => updateCodeSnippet(snippet)} className="edit-btn">Edit</button>
                                                 <button onClick={() => deleteCodeSnippet(snippet.id)} className="delete-btn">Delete</button>
                                                 <button className="share-btn">Share CodeSnippet</button>
                                             </div>
@@ -206,7 +212,7 @@ export default function CodeSnippetPage() {
                                             <div className='code-snippet-card'>
                                                 <CodeSnippet title={codeSnippet.title} code={codeSnippet.code_snippet} />
                                                 <div className="code-snippet-buttons">
-                                                    <button onClick={updateCodeSnippet} className="edit-btn">Edit</button>
+                                                    <button onClick={() => updateCodeSnippet(codeSnippet)} className="edit-btn">Edit</button>
                                                     <button onClick={() => deleteCodeSnippet(codeSnippet.id)} className="delete-btn">Delete</button>
                                                     <button className="share-btn">Share CodeSnippet</button>
                                                 </div>

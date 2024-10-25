@@ -27,11 +27,11 @@ function App() {
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/code-snippets" element={<ProtectedRoute><CodeSnippetPage /></ProtectedRoute>} />
           <Route path="/create-snippet" element={<ProtectedRoute><CreateCodeSnippetPage /></ProtectedRoute>} />
-          <Route path="/update-snippet" element={<ProtectedRoute><UpdateCodeSnippetPage /></ProtectedRoute>} />
+          <Route path="/update-snippet/:id" element={<ProtectedRoute><UpdateCodeSnippetPage /></ProtectedRoute>} />
         </Routes>
         <ToastContainer 
           position="top-right" 
-          autoClose={5000} 
+          autoClose={5000}
           hideProgressBar={false} 
           newestOnTop={false}  
           closeOnClick
