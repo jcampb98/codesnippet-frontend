@@ -20,8 +20,9 @@ interface CodeSnippetResponse {
     title: string;
     code_snippet: string;
     user_id: number;
-    created_at: string;
-    updated_at: string;
+    created_at?: string | null;
+    updated_at?: string | null;
+    guid: string;
 }
 
 interface ApiResponseError {
@@ -36,8 +37,9 @@ interface SnippetType {
     title: string;
     code_snippet: string;
     user_id: number;
-    created_at: string;
-    updated_at: string;
+    created_at?: string | null;
+    updated_at?: string | null;
+    guid: string;
 }
 
 const options = [
@@ -166,6 +168,10 @@ export default function CodeSnippetPage() {
         }
     }
 
+    const shareCodeSnippet = async (guid: string) => {
+        navigate(`/share-snippet/${guid}`);
+    };
+
     return(
         <div className="container">
             <SideBar user={user} expanded={expanded} setExpanded={setExpanded} />
@@ -199,7 +205,7 @@ export default function CodeSnippetPage() {
                                             <div className="code-snippet-buttons">
                                                 <button onClick={() => updateCodeSnippet(snippet)} className="edit-btn">Edit</button>
                                                 <button onClick={() => deleteCodeSnippet(snippet.id)} className="delete-btn">Delete</button>
-                                                <button className="share-btn">Share CodeSnippet</button>
+                                                <button onClick={() => shareCodeSnippet(snippet.guid)} className="share-btn">Share CodeSnippet</button>
                                             </div>
                                         </div>
                                     </div>
@@ -214,7 +220,7 @@ export default function CodeSnippetPage() {
                                                 <div className="code-snippet-buttons">
                                                     <button onClick={() => updateCodeSnippet(codeSnippet)} className="edit-btn">Edit</button>
                                                     <button onClick={() => deleteCodeSnippet(codeSnippet.id)} className="delete-btn">Delete</button>
-                                                    <button className="share-btn">Share CodeSnippet</button>
+                                                    <button onClick={() => shareCodeSnippet(codeSnippet.guid)} className="share-btn">Share CodeSnippet</button>
                                                 </div>
                                             </div>
                                         </div>

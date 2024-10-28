@@ -1,0 +1,84 @@
+.share-code-snippet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #005b96;
+    min-height: 100vh;
+    margin: 0;
+    padding: 1rem;
+    line-height: 1.5;
+}
+
+.share-code-container {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color:#ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.code-snippet-title {
+    padding: 1rem 1.5rem;
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.code-block {
+    position: relative;
+    background: #1e293b;
+    margin: 0 1rem 1rem 1rem;
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.code-content {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.code-content pre code {
+    background-color: #1e293b;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.copy-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.code-content pre code .hljs-string { color: #a8e6cf; }
+.code-content pre code .hljs-function { color: #ddd; }
+.code-content pre code .hljs-keyword { color: #ff9a8b; }
+.code-content pre code .hljs-console { color: #ffd2b6; }
+
+@media (max-width: 480px) {
+    .share-code-container {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .code-snippet-title {
+        font-size: 1rem;
+    }
+
+    .code-content {
+        font-size: 0.8125rem;
+    }
+}
