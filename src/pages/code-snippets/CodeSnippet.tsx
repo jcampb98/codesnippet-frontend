@@ -23,6 +23,7 @@ interface CodeSnippetResponse {
     created_at?: string | null;
     updated_at?: string | null;
     guid: string;
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 interface ApiResponseError {
@@ -40,6 +41,7 @@ interface SnippetType {
     created_at?: string | null;
     updated_at?: string | null;
     guid: string;
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const options = [
@@ -168,6 +170,12 @@ export default function CodeSnippetPage() {
         }
     }
 
+    const copyToClipboard = (code_snippet: string) => {
+        navigator.clipboard.writeText(code_snippet);
+
+        toast.success("Code snippet copied to clipboard!");
+    };
+
     const shareCodeSnippet = async (guid: string) => {
         navigate(`/share-snippet/${guid}`);
     };
@@ -201,7 +209,7 @@ export default function CodeSnippetPage() {
                                 <div key={snippet.id} className="grid-item">
                                     <div className="code-snippet-container">
                                         <div className='code-snippet-card'>
-                                            <CodeSnippet title={snippet.title} code={snippet.code_snippet} />
+                                            <CodeSnippet title={snippet.title} code={snippet.code_snippet} onClick={() => copyToClipboard(snippet.code_snippet)} />
                                             <div className="code-snippet-buttons">
                                                 <button onClick={() => updateCodeSnippet(snippet)} className="edit-btn">Edit</button>
                                                 <button onClick={() => deleteCodeSnippet(snippet.id)} className="delete-btn">Delete</button>
@@ -216,7 +224,7 @@ export default function CodeSnippetPage() {
                                     <div key={codeSnippet.id} className="grid-item">
                                         <div className="code-snippet-container">
                                             <div className='code-snippet-card'>
-                                                <CodeSnippet title={codeSnippet.title} code={codeSnippet.code_snippet} />
+                                                <CodeSnippet title={codeSnippet.title} code={codeSnippet.code_snippet} onClick={() => copyToClipboard(codeSnippet.code_snippet)} />
                                                 <div className="code-snippet-buttons">
                                                     <button onClick={() => updateCodeSnippet(codeSnippet)} className="edit-btn">Edit</button>
                                                     <button onClick={() => deleteCodeSnippet(codeSnippet.id)} className="delete-btn">Delete</button>

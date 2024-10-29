@@ -68,6 +68,38 @@
     width: 100%;
 }
 
+.code-block {
+    position: relative;
+    background-color: #1e293b;
+    margin: 0 1rem 1rem 1rem;
+    border-radius: 8px;
+    border-color: #1e293b;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.code-snippet-card pre code {
+    background-color: #1e293b;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.copy-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
 .code-snippet-card {
     background: #f8f9fa;
     border-radius: 6px;
@@ -78,7 +110,6 @@
 .code-snippet-card pre {
     width: 100%;
     overflow-x: auto;
-    background: #f1f3f5;
     padding: 16px;
     border-radius: 4px;
     margin: 12px 0;
@@ -133,6 +164,11 @@
 .code-snippet-title {
     font-weight: 600;
 }
+
+.code-snippet-card pre code .hljs-string { color: #a8e6cf; }
+.code-snippet-card pre code .hljs-function { color: #ddd; }
+.code-snippet-card pre code .hljs-keyword { color: #ff9a8b; }
+.code-snippet-card pre code .hljs-console { color: #ffd2b6; }
 
 @media (min-width: 1280px) {
     .content {
