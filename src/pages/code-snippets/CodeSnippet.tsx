@@ -177,7 +177,9 @@ export default function CodeSnippetPage() {
     };
 
     const shareCodeSnippet = async (guid: string) => {
-        navigate(`/share-snippet/${guid}`);
+        navigator.clipboard.writeText(`${import.meta.env.VITE_BASE_URL}/share-snippet/${guid}`);
+
+        toast.success("Code Snippet Link Copied!");
     };
 
     return(
