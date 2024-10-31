@@ -44,16 +44,12 @@ interface SnippetType {
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const options = [
-    { label: "JavaScript", value: "javascript"},
-    { label: "TypeScript", value: "typescript"},
-    { label: "C#", value: "c-sharp"},
-    { label: "React.js", value: "react"},
-]
-
 export default function CodeSnippetPage() {
     const [user, setUser] = useState<User | null>();
     const [codeSnippet, setCodeSnippet] = useState<CodeSnippetResponse[]>([]);
+    const [detectedLanguages, setDetectedLanguages] = useState<{ [id: number]: string }>();
+    const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
+    const [languageOptions, setLanguageOptions] = useState<string[]>([]);
     const [expanded, setExpanded] = useState(false);
     const [search, setSearch] = useState("");
     const [filteredSnippets, setFilteredSnippets] = useState<SnippetType[]>(codeSnippet);
@@ -110,6 +106,11 @@ export default function CodeSnippetPage() {
         }
     }, [user, navigate]);
 
+    useEffect(() => {
+        const languages = Array.from(new Set(Object.values(detectedLanguages || {})));
+        setLanguageOptions(languages);
+    }, [detectedLanguages]);
+
     if(!user) {
         return <LoadingSpinner text="Loading CodeSnippets..." />;
     }
@@ -132,7 +133,18 @@ export default function CodeSnippetPage() {
     };
 
     const handleCheckboxChange = (selectedValues: string []) => {
-        console.log("Selected values: ", selectedValues);
+        setSelectedLanguages(selectedValues);
+
+        if(selectedValues.length > 0) {
+            const filtered = codeSnippet.filter((snippet) => {
+                return selectedValues.includes(detectedLanguages?.[snippet.id] || "");
+            });
+
+            setFilteredSnippets(filtered);
+        }
+        else {
+            setFilteredSnippets(codeSnippet);
+        }
     };
 
     const handleCreateSnippet = () => {
@@ -143,7 +155,11 @@ export default function CodeSnippetPage() {
         console.log("Updating code snippet: ", singleCodeSnippet);
 
         navigate(`/update-snippet/${singleCodeSnippet.id}`, { state: { singleCodeSnippet }});
-    }
+    };
+
+    const handleLanguageDetected = (id: number, language: string) => {
+        setDetectedLanguages((prev) => ({...prev, [id]: language}));
+    };
 
     const deleteCodeSnippet = async (id: number) => {
         try {
@@ -194,7 +210,7 @@ export default function CodeSnippetPage() {
                     <div className="checkbox-group mt-6">
                     <div className="mt-6">
                         <h3 className="text-xl font-bold text-gray-700 mb-4">Select Your Technologies:</h3>
-                        <CheckboxGroup options={options} onChange={handleCheckboxChange} />
+                        <CheckboxGroup options={languageOptions} onChange={handleCheckboxChange} />
                     </div>
                 </div>
                 </div>
@@ -206,12 +222,37 @@ export default function CodeSnippetPage() {
                     </button>
                     <div className="grid">
                         {
-                            search.length > 0 
-                            ? filteredSnippets.map(snippet => (
+                            filteredSnippets.length > 0 
+                            ? filteredSnippets.map((snippet) => (
                                 <div key={snippet.id} className="grid-item">
                                     <div className="code-snippet-container">
                                         <div className='code-snippet-card'>
-                                            <CodeSnippet title={snippet.title} code={snippet.code_snippet} onClick={() => copyToClipboard(snippet.code_snippet)} />
+                                            <CodeSnippet 
+                                                title={snippet.title} 
+                                                code={snippet.code_snippet} 
+                                                onClick={() => copyToClipboard(snippet.code_snippet)}
+                                                onLanguageDetected={(language) => handleLanguageDetected(snippet.id, language)} 
+                                            />
+                                            <div className="code-snippet-buttons">
+                                                <button onClick={() => updateCodeSnippet(snippet)} className="edit-btn">Edit</button>
+                                                <button onClick={() => deleteCodeSnippet(snippet.id)} className="delete-btn">Delete</button>
+                                                <button onClick={() => shareCodeSnippet(snippet.guid)} className="share-btn">Share CodeSnippet</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                            : selectedLanguages.length > 0 
+                            ? codeSnippet.map((snippet) => (
+                                <div key={snippet.id} className="grid-item">
+                                    <div className="code-snippet-container">
+                                        <div className='code-snippet-card'>
+                                            <CodeSnippet 
+                                                title={snippet.title} 
+                                                code={snippet.code_snippet} 
+                                                onClick={() => copyToClipboard(snippet.code_snippet)}
+                                                onLanguageDetected={(language) => handleLanguageDetected(snippet.id, language)} 
+                                            />
                                             <div className="code-snippet-buttons">
                                                 <button onClick={() => updateCodeSnippet(snippet)} className="edit-btn">Edit</button>
                                                 <button onClick={() => deleteCodeSnippet(snippet.id)} className="delete-btn">Delete</button>
@@ -226,7 +267,12 @@ export default function CodeSnippetPage() {
                                     <div key={codeSnippet.id} className="grid-item">
                                         <div className="code-snippet-container">
                                             <div className='code-snippet-card'>
-                                                <CodeSnippet title={codeSnippet.title} code={codeSnippet.code_snippet} onClick={() => copyToClipboard(codeSnippet.code_snippet)} />
+                                                <CodeSnippet 
+                                                    title={codeSnippet.title} 
+                                                    code={codeSnippet.code_snippet} 
+                                                    onClick={() => copyToClipboard(codeSnippet.code_snippet)}
+                                                    onLanguageDetected={(language) => handleLanguageDetected(codeSnippet.id, language)} 
+                                                />
                                                 <div className="code-snippet-buttons">
                                                     <button onClick={() => updateCodeSnippet(codeSnippet)} className="edit-btn">Edit</button>
                                                     <button onClick={() => deleteCodeSnippet(codeSnippet.id)} className="delete-btn">Delete</button>

@@ -1,12 +1,7 @@
 import { useState } from "react";
 
-interface CheckboxOption {
-    label: string;
-    value: string;
-}
-
 interface CheckboxGroupProps {
-    options: CheckboxOption[];
+    options: string[];
     onChange: (selectedValues: string[]) => void;
 }
 
@@ -34,16 +29,16 @@ export default function CheckboxGroup({ options, onChange }: CheckboxGroupProps)
                     <input 
                         type="checkbox"
                         id={`checkbox-${index}`}
-                        value={option.value}
-                        checked={selectedValues.includes(option.value)}
-                        onChange={() => handleCheckboxChange(option.value)}
+                        value={option}
+                        checked={selectedValues.includes(option)}
+                        onChange={() => handleCheckboxChange(option)}
                         className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                     />
                     <label
                         htmlFor={`checkbox-${index}`}
                         className="ml-2 text-gray-700"
                     >
-                        {option.label}
+                        {option}
                     </label>
                 </div>
             )}

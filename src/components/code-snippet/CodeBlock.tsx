@@ -4,16 +4,24 @@ import 'highlight.js/styles/default.css';
 
 interface CodeBlockProps {
     code: string;
+    onLanguageDetected: (language: string) => void;
 }
 
-const CodeBlock: React.FC<CodeBlockProps> = ({ code }) => {
+const CodeBlock: React.FC<CodeBlockProps> = ({ code, onLanguageDetected }) => {
     const codeRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         if(codeRef.current) {
-            hljs.highlightBlock(codeRef.current);
+            // Detects the language and applies syntax highlighting
+            const { value: highlightedCode, language } = hljs.highlightAuto(code);
+
+            codeRef.current.innerHTML = highlightedCode;
+
+            if(language) {
+                onLanguageDetected(language);
+            }
         }
-    }, [code]);
+    }, [code, onLanguageDetected]);
 
     return (
         <pre>
