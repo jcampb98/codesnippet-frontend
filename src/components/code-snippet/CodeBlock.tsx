@@ -9,9 +9,12 @@ interface CodeBlockProps {
 
 const CodeBlock: React.FC<CodeBlockProps> = ({ code, onLanguageDetected }) => {
     const codeRef = useRef<HTMLElement>(null);
+    const wasAlreadyRequested = useRef(false);
 
     useEffect(() => {
-        if(codeRef.current) {
+        if(codeRef.current && !wasAlreadyRequested.current) {
+            wasAlreadyRequested.current = true;
+
             // Detects the language and applies syntax highlighting
             const { value: highlightedCode, language } = hljs.highlightAuto(code);
 
@@ -21,7 +24,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code, onLanguageDetected }) => {
                 onLanguageDetected(language);
             }
         }
-    }, [code, onLanguageDetected]);
+    }, [code, onLanguageDetected, wasAlreadyRequested]);
 
     return (
         <pre>
