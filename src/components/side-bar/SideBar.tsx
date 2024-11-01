@@ -68,7 +68,7 @@ export default function SideBar({ user, expanded, setExpanded }: SideBarProps) {
                         <SideBarItem
                             icon={<CogIcon className="h-6 w-6 text-primary-500" />}
                             text="Account Settings"
-                            linkUrl="/user-settings"
+                            linkUrl="/account-settings"
                             expanded={expanded}
                         />
                     </ul>

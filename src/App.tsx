@@ -10,6 +10,7 @@ import CodeSnippetPage from "./pages/code-snippets/CodeSnippet";
 import CreateCodeSnippetPage from "./pages/code-snippets/CreateCodeSnippet";
 import UpdateCodeSnippetPage from "./pages/code-snippets/UpdateCodeSnippet";
 import ViewCodeSnippetPage from "./pages/code-snippets/ViewCodeSnippet";
+import AccountSettingsPage from "./pages/account-settings/AccountSettings";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import 'highlight.js/styles/default.css';
@@ -30,6 +31,7 @@ function App() {
           <Route path="/create-snippet" element={<ProtectedRoute><CreateCodeSnippetPage /></ProtectedRoute>} />
           <Route path="/update-snippet/:id" element={<ProtectedRoute><UpdateCodeSnippetPage /></ProtectedRoute>} />
           <Route path="/share-snippet/:guid" element={<ViewCodeSnippetPage />} />
+          <Route path="/account-settings" element = {<ProtectedRoute><AccountSettingsPage /></ProtectedRoute>} />
         </Routes>
         <ToastContainer 
           position="top-right" 
