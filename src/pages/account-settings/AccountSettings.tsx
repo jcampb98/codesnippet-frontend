@@ -5,6 +5,7 @@ import axios, { AxiosError } from "axios";
 import SideBar from "../../components/side-bar/SideBar";
 import AccountSettings from "../../components/account-settings/AccountSettings";
 import LoadingSpinner from "../../components/loading-spinner/LoadingSpinner";
+import ConfirmationDialog from "../../components/dialog/ConfirmationDialog";
 import "../../styles/account-settings/AccountSettings.css";
 
 interface User {
@@ -24,6 +25,7 @@ export default function AccountSettingsPage() {
     const [user, setUser] = useState<User | null>(null);
     const [expanded, setExpanded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [confirmOpen, setConfirmOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -64,9 +66,13 @@ export default function AccountSettingsPage() {
         fetchUserDetails();
     }, [navigate]);
 
+    const openDialog = () => {
+        setConfirmOpen(true);
+    };
+
     const deleteAccount = async () => {
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/deleteAccount`, {
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/auth/delete/${user?.id}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
                     "Content-Type": "application/json",
@@ -76,7 +82,7 @@ export default function AccountSettingsPage() {
             if(response.status === 200) {
                 toast.success("Account deleted successfully");
                 localStorage.removeItem('token');
-                navigate("/login");
+                navigate("/");
             }
         } 
         catch (error: unknown) {
@@ -103,7 +109,17 @@ export default function AccountSettingsPage() {
                         <h3 className="account-settings-title">Account Settings</h3>
                         <AccountSettings user={user} />
                         <br />
-                        <button type="button" onClick={deleteAccount} className="delete-account-btn">Delete Account</button>
+                        <button type="button" onClick={openDialog} className="delete-account-btn">Delete Account</button>
+                    </div>
+                    <div>
+                        <ConfirmationDialog
+                            title="Delete Account?"
+                            open={confirmOpen}
+                            onClose={() => setConfirmOpen(false)}
+                            onConfirm={deleteAccount}
+                        >
+                            Are you sure you want to delete your account? This action cannot be undone.
+                        </ConfirmationDialog>
                     </div>
                 </> 
             }
