@@ -164,7 +164,7 @@
     margin: 0 1rem;
 }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 1024px) {
     .content {
         flex-direction: column;
         align-items: center;
@@ -185,7 +185,18 @@
     .section-content-list {
         flex-direction: column;
     }
-    
+
+    .section-content-item {
+        display: grid;
+        justify-items: center;
+    }
+
+    .arrow-icon {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {    
     .section-content-item {
         display: content;
     }
@@ -197,9 +208,5 @@
 
     .step {
         margin-bottom: 10px;
-    }
-
-    .arrow-icon {
-        display: none;
     }
 }

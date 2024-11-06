@@ -1,9 +1,35 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "../../styles/navbar/Navbar.css";
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [validatedUser, setValidatedUser] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            axios.get(`${import.meta.env.VITE_API_URL}/validate-token`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                if(response.status === 200) {
+                    setValidatedUser(true);
+                }
+             })
+            .catch((error) => {
+                if (error.response.status === 401) {
+                    localStorage.removeItem("token");
+                    setValidatedUser(false);
+                }
+             });
+        } else {
+            setValidatedUser(false);
+        }
+    }, [validatedUser, setValidatedUser]);
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -24,6 +50,21 @@ function Navbar() {
                     <li className="nav-item" onClick={closeMenu}>
                         About
                     </li>
+                    { !validatedUser && 
+                        <>
+                            <li className="nav-item register-mobile-link" onClick={closeMenu}>
+                                <Link to="/register">Register</Link>
+                            </li>
+                            <li className="nav-item login-mobile-link" onClick={closeMenu}>
+                                <Link to="/login">Login</Link>
+                            </li>
+                        </>
+                    }
+                    { validatedUser && 
+                        <li className="nav-item dashboard-mobile-link" onClick={closeMenu}>
+                            <Link to="/dashboard">Dashboard</Link>
+                        </li>
+                    }
                 </ul>
                 <div className={`hamburger ${menuOpen ? "active" : ""}`} onClick={toggleMenu}>
                     <span className="bar"></span>

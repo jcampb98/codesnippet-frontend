@@ -98,6 +98,18 @@ a {
     transform: translateY(-7px);
 }
 
+.login-mobile-link {
+    display: none;
+}
+
+.register-mobile-link {
+    display: none;
+}
+
+.dashboard-mobile-link {
+    display: none;
+}
+
 @media (max-width: 1024px) {
     .nav-logo {
         width: auto;
@@ -182,5 +194,17 @@ a {
 
     .nav-link {
         display: none;
+    }
+
+    .login-mobile-link {
+        display: block;
+    }
+    
+    .register-mobile-link {
+        display: block;
+    }
+    
+    .dashboard-mobile-link {
+        display: block;
     }
 }
