@@ -50,6 +50,12 @@ function Navbar() {
                     <li className="nav-item" onClick={closeMenu}>
                         About
                     </li>
+                    <li className="nav-item" onClick={closeMenu}>
+                        <Link to="/privacy-policy">Privacy Policy</Link>
+                    </li>
+                    <li className="nav-item" onClick={closeMenu}>
+                        <Link to="/terms-and-services">Terms & Services</Link>
+                    </li>
                     { !validatedUser && 
                         <>
                             <li className="nav-item register-mobile-link" onClick={closeMenu}>

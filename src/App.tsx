@@ -11,6 +11,8 @@ import CreateCodeSnippetPage from "./pages/code-snippets/CreateCodeSnippet";
 import UpdateCodeSnippetPage from "./pages/code-snippets/UpdateCodeSnippet";
 import ViewCodeSnippetPage from "./pages/code-snippets/ViewCodeSnippet";
 import AccountSettingsPage from "./pages/account-settings/AccountSettings";
+import TermsAndServicesPage from "./pages/terms & services/Terms";
+import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import 'highlight.js/styles/default.css';
@@ -26,6 +28,8 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/terms-and-conditions" element={<TermsAndServicesPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/code-snippets" element={<ProtectedRoute><CodeSnippetPage /></ProtectedRoute>} />
           <Route path="/create-snippet" element={<ProtectedRoute><CreateCodeSnippetPage /></ProtectedRoute>} />

@@ -12,7 +12,7 @@ function HomeContent() {
                         No more cluttered chat messages-just clean, organized, and searchable code sharing.
                     </p>
                     <button className='get-started-btn' role='button'>
-                        <Link to="/register">Get Started</Link>
+                        <Link to="/register">Get Started By Registering?</Link>
                     </button>
                 </div>
                 <div className='content-image-container'>
