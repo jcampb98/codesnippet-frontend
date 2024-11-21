@@ -1,6 +1,13 @@
+import Navbar from "../../components/navbar/Navbar";
+import Footer from "../../components/footer/Footer";
+import "../../styles/privacy-policy/PrivacyPolicy.css";
+
 export default function PrivacyPolicy() {
     return (
         <div className="privacy-policy-container">
+            <div className="navbar-container">
+                <Navbar />
+            </div>
             <h1 className="privacy-policy-heading">Privacy Policy</h1>
             <ol className="privacy-policy-list">
                 <li className="privacy-policy-item">
@@ -72,6 +79,9 @@ export default function PrivacyPolicy() {
                     </p>
                 </li>
             </ol>
+            <div className="footer-container">
+                <Footer />
+            </div>
         </div>
     );
 }

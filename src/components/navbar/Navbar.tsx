@@ -51,7 +51,7 @@ function Navbar() {
                         <Link to="/privacy-policy">Privacy Policy</Link>
                     </li>
                     <li className="nav-item" onClick={closeMenu}>
-                        <Link to="/terms-and-services">Terms & Services</Link>
+                        <Link to="/terms-and-conditions">Terms & Conditions</Link>
                     </li>
                     { !validatedUser && 
                         <>

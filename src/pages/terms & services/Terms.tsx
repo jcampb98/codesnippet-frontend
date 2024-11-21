@@ -1,6 +1,13 @@
+import Navbar from "../../components/navbar/Navbar";
+import Footer from "../../components/footer/Footer";
+import "../../styles/terms-and-conditions/Terms.css";
+
 export default function TermsAndServicesPage() {
     return (
         <div className="terms-and-service-container">
+            <div className="navbar-container">
+                <Navbar />
+            </div>
             <h1 className="terms-and-services-heading">Terms and Services</h1>
             <ol className="terms-and-services-list">
                 <li className="terms-and-services-item">
@@ -72,6 +79,9 @@ export default function TermsAndServicesPage() {
                     </p>
                 </li>
             </ol>
+            <div className="footer-container">
+                <Footer />
+            </div>
         </div>
     );
 }

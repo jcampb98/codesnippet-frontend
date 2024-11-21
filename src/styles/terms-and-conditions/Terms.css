@@ -1,0 +1,88 @@
+.terms-and-service-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.navbar-container,
+.footer-container {
+    margin-bottom: 5px;
+}
+
+.terms-and-services-heading {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.terms-and-services-list {
+    list-style-type: none;
+    padding: 15px;
+}
+
+.terms-and-services-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.item-header {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.item-text { 
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+    .terms-and-services-heading {
+        font-size: 1.75rem;
+    }
+
+    .item-header {
+        font-size: 1.25rem;
+    }
+
+    .item-text {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .terms-and-service-container {
+        padding: 10px;
+    }
+
+    .terms-and-services-heading {
+        font-size: 1.5rem;
+    }
+
+    .item-header {
+        font-size: 1.15rem;
+    }
+
+    .item-text {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .terms-and-services-heading {
+        font-size: 1.25rem;
+    }
+
+    .item-header {
+        font-size: 1rem;
+    }
+
+    .item-text {
+        font-size: 0.85rem;
+    }
+
+    .terms-and-services-item {
+        padding: 8px;
+    }
+}
